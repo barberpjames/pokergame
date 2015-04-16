@@ -42,7 +42,18 @@ int main(int argc, char** argv){
     askForHold(first, deck);
     secondHand(first, deck);
     printCards(first);
-    checkIfWinner(first);
+    int check = checkIfWinner(first);
+
+    cout << "\n\nHighest Hand: ";
+    switch(check){
+    case 0 :
+        cout << "Nothing\n\n";
+        break;
+    case 1 :
+        cout << "A Pair!!\n\n";
+        break;
+    }
+
 /*    for(int i = 1; i < 53; i++){
         cout << deck[i].value << " " << deck[i].suite << " " << deck[i].dealt << endl;
     }*/
@@ -347,9 +358,38 @@ void secondHand(card first[], card deck[]){
     }
 }
 
+/*This function will return an int corresponding to the following winning hands:
+0 Nothing
+1 pair 
+2 3oak
+3 pair
+4 straight
+5 flush
+6 full house
+7 4oak
+8 straight flush
+9 royal flush*/
 int checkIfWinner(card first[]){
+    if(checkPair(first) == true){
+        return 1;
+    }
     return 0;
 }
+
  bool checkPair(card first[]){
+    for(int i = 1; i < 5; i++){
+        if(first[0].value == first[i].value)
+            return true;
+    }
+    for(int i = 2; i < 5; i++){
+        if(first[1].value == first[i].value)
+            return true;
+    }
+    for(int i = 3; i < 5; i++){
+        if(first[2].value == first[i].value)
+            return true;
+    }
+    if(first[3].value == first[4].value)
+        return true;
     return false;
  }
