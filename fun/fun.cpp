@@ -23,6 +23,8 @@ void initializeDeck(card deck[]);
 void firstHand(card first[], card deck[]);
 void printCards(card hand[]);
 void askForHold(card first[], card deck[]);
+void secondHand(card first[], card deck[]);
+void checkIfWinner(card first[])
 
 
 
@@ -36,6 +38,9 @@ int main(int argc, char** argv){
     firstHand(first, deck);
     printCards(first);
     askForHold(first, deck);
+    secondHand(first, deck);
+    printCards(first);
+    checkIfWinner(first);
 /*    for(int i = 1; i < 53; i++){
         cout << deck[i].value << " " << deck[i].suite << " " << deck[i].dealt << endl;
     }*/
@@ -75,13 +80,11 @@ void initializeDeck(card deck[]){
     }
 }
 
-
-
 //This is the first hand function. It will keep pulling 
 //random cards from the deck until none of them are the same
 //Receives an array of 5 elements and the card array
 void firstHand(card first[], card deck[]){
-    card c1, c2, c3, c4, c5;
+/*    card c1, c2, c3, c4, c5;
     c1.value = 0;
     c2.value = 0;
     c3.value = 0;
@@ -143,9 +146,18 @@ void firstHand(card first[], card deck[]){
     deck[randomForSelection2].dealt = true;
     deck[randomForSelection3].dealt = true;
     deck[randomForSelection4].dealt = true;
-    deck[randomForSelection5].dealt = true;
+    deck[randomForSelection5].dealt = true;*/
+    card newCard;
+    for(int i = 0; i < 5; i++){
+        int randomForSelection = rand() % 53;
+        while(randomForSelection == 0 || deck[randomForSelection].dealt == true)
+            randomForSelection = rand() % 53;
+        deck[randomForSelection].dealt = true;
+        newCard = deck[randomForSelection];
+        first[i].value = newCard.value;
+        first[i].suite = newCard.suite;
+    }
 }
-
 
 //Function to print out hand
 void printCards(card hand[]){
@@ -248,49 +260,91 @@ void printCards(card hand[]){
         // }
 }
 
-
+//Function that asks if you would like to discard any cards
 void askForHold(card first[], card deck[]){
-    char willYouHold;
+    bool holding = false;//To determine if holding cards
+    char willYouHold;//To determine if holding
     bool done = false;
-    card discardPile[5];
     int numberDiscarded = 0;
-    int cardNumber = 'A';
-    int count = 0;
-    cout << "Would you like to discard any cards? Enter Y or N: ";
-    cin >> willYouHold;
-    while(willYouHold != 'Y' && willYouHold != 'N'){
-        cout << endl << "You Must enter Y or N: " << endl;
+    char cardNumber = 'A';//to hold card number or D
+    int intToHoldCard;//to be able to subscript with the card number
+
+    //Check to see if holding any cards
+    while(holding == false){
+        cout << "Would you like to discard any cards? Enter Y or N: ";
         cin >> willYouHold;
-    }
+        while(willYouHold != 'Y' && willYouHold != 'N'){
+            cout << endl << "You Must enter Y or N: ";
+            cin >> willYouHold;
+        }
 
 
-    if(willYouHold == 'Y'){/////////////////////////Holding Cards
-        while(done == false && numberDiscarded != 5 && cardNumber != 'D'){
-            cout << "Please enter card number to discard or D for done: ";
-            cin >> cardNumber;
-            if(cardNumber != 'D'){
-                cout << cardNumber;
-                while(first[cardNumber].discarded == true && cardNumber != 'D' && count != 2){
-                    cout << "\nYou already discarded this card!!!";
-                    cout << "Please enter card number to discard or D for done: ";
-                    cin >> cardNumber;
-                    count++;                    }
+
+        if(willYouHold == 'Y'){/////////////////////////Holding Cards
+            holding = true;
+            while(done == false && numberDiscarded != 5 && cardNumber != 'D'){
+                cout << "Please enter card number to discard or D for done: ";
+                cin >> cardNumber;
                 if(cardNumber != 'D'){
-                    discardPile[numberDiscarded].value = first[cardNumber].value;
-                    discardPile[numberDiscarded].suite = first[cardNumber].suite;
-                    first[cardNumber].discarded = true;
-                    numberDiscarded++;
+                    intToHoldCard = cardNumber - '1';
+                    while(first[intToHoldCard].discarded == true && cardNumber != 'D'){
+                        cout << "\nYou already discarded this card!!!";
+                        cout << "Enter card number or D for done: ";
+                        cin >> cardNumber;
+                        intToHoldCard = cardNumber - '1';
+                    }
+                    if(cardNumber != 'D'){
+                        first[intToHoldCard].discarded = true;
+                        numberDiscarded++;
+                    }
                 }
+                else if(cardNumber == 'D')
+                    done = true;
             }
-            else if(cardNumber == 'D')
-                done = true;
+            cout << "You have chosen to discard cards: " << endl;
+            for(int i = 0; i < 5; i++){
+                if(first[i].discarded == true)
+                    cout << i + 1<< " ";
             }
-        cout << "You have chosen to discard cards: " << endl;
-        for(int i = 0; i < 5; i++){
-            if(first[i].discarded == true)
-                cout << i << " ";
+            cout << endl;
+            cout << "Would you like to change your mind? Y or N: ";
+            char changeMind = 'A';
+            cin >> changeMind;
+            while(changeMind != 'Y' && changeMind != 'N'){
+                cout << endl << "You Must enter Y or N: ";
+                cin >> changeMind;
+            }
+            if(changeMind == 'Y'){
+                for(int i = 0; i < 5; i++){
+                    first[i].discarded = false;
+                }
+                numberDiscarded = 0;
+                holding = false;
+                cardNumber = 'A';
+                done = false;
+            }
+        }
+        else/////////////////////////////////////////////////Not holding cards
+            holding = true;
+    } 
+}
+
+//Function that will check for discarded cards, and deal new ones when appropriate
+void secondHand(card first[], card deck[]){
+    card newCard;
+    for(int i = 0; i < 5; i++){
+        if(first[i].discarded == true){
+            int randomForSelection = rand() % 53;
+            while(randomForSelection == 0 || deck[randomForSelection].dealt == true)
+                randomForSelection = rand() % 53;
+            deck[randomForSelection].dealt = true;
+            newCard = deck[randomForSelection];
+            first[i].value = newCard.value;
+            first[i].suite = newCard.suite;
         }
     }
 }
 
-
+void checkIfWinner(card first[]){
+    
+}
