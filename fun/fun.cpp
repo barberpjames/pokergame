@@ -26,6 +26,7 @@ void askForHold(card first[], card deck[]);
 void secondHand(card first[], card deck[]);
 int checkIfWinner(card first[]);
 bool checkPair(card first[]);
+bool check3(card first[]);
 
 
 
@@ -361,7 +362,7 @@ void secondHand(card first[], card deck[]){
 /*This function will return an int corresponding to the following winning hands:
 0 Nothing
 1 pair 
-2 3oak
+2 3 oof a kind
 3 pair
 4 straight
 5 flush
@@ -376,7 +377,8 @@ int checkIfWinner(card first[]){
     return 0;
 }
 
- bool checkPair(card first[]){
+//This function checks for a pair
+bool checkPair(card first[]){
     for(int i = 1; i < 5; i++){
         if(first[0].value == first[i].value)
             return true;
@@ -393,3 +395,28 @@ int checkIfWinner(card first[]){
         return true;
     return false;
  }
+
+//This function checks for 3 of a kind
+bool check3(card first[]){
+    for(int i = 1; i < 5; i++){
+        if(first[0].value == first[i].value)
+            if(i < 4)
+                for(int j = (i + 1); j < 5; j++)
+                    if(first[j].value == first[0].value)
+                        return true;
+
+    }
+    for(int i = 2; i < 5; i++){
+        if(first[1].value == first[i].value)
+            if(i < 4)
+                for(int j = (i + 1); j < 5; j++)
+                    if(first[j].value == first[1].value)
+                        return true;
+
+    }
+    if(first[3].value == first[4].value && first[4].value == first[5].value)
+        return true;
+
+
+    return false;
+}
