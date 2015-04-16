@@ -24,7 +24,9 @@ void firstHand(card first[], card deck[]);
 void printCards(card hand[]);
 void askForHold(card first[], card deck[]);
 void secondHand(card first[], card deck[]);
-void checkIfWinner(card first[])
+int checkIfWinner(card first[]);
+bool checkPair(card first[]);
+
 
 
 
@@ -345,6 +347,9 @@ void secondHand(card first[], card deck[]){
     }
 }
 
-void checkIfWinner(card first[]){
-    
+int checkIfWinner(card first[]){
+    return 0;
 }
+ bool checkPair(card first[]){
+    return false;
+ }
