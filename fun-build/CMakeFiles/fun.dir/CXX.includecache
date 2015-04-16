@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/jim/Desktop/forFun/fun/fun.cpp
+iostream
+-
+stdlib.h
+-
+fstream
+-
+iomanip
+-
+stdio.h
+-
+unistd.h
+-
+sys/wait.h
+-
+dirent.h
+-
+sys/types.h
+-
+ctime
+-
+
