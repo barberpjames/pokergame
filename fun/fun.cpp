@@ -42,7 +42,16 @@ int main(int argc, char** argv){
     printCards(first);
     askForHold(first, deck);
     secondHand(first, deck);
+
+
+    first[2].value = first[3].value = first[4].value = 5;
     printCards(first);
+
+
+
+
+
+    //testing cases
     int check = checkIfWinner(first);
 
     cout << "\n\nHighest Hand: ";
@@ -53,6 +62,8 @@ int main(int argc, char** argv){
     case 1 :
         cout << "A Pair!!\n\n";
         break;
+    case 2 :
+        cout << "Three of a kind!!\n\n";
     }
 
 /*    for(int i = 1; i < 53; i++){
@@ -285,34 +296,34 @@ void askForHold(card first[], card deck[]){
 
     //Check to see if holding any cards
     while(holding == false){
-        cout << "Would you like to discard any cards? Enter Y or N: ";
+        cout << "Would you like to discard any cards? Enter y or n: ";
         cin >> willYouHold;
-        while(willYouHold != 'Y' && willYouHold != 'N'){
-            cout << endl << "You Must enter Y or N: ";
+        while(willYouHold != 'y' && willYouHold != 'n'){
+            cout << endl << "You Must enter y or n: ";
             cin >> willYouHold;
         }
 
 
 
-        if(willYouHold == 'Y'){/////////////////////////Holding Cards
+        if(willYouHold == 'y'){/////////////////////////Holding Cards
             holding = true;
-            while(done == false && numberDiscarded != 5 && cardNumber != 'D'){
-                cout << "Please enter card number to discard or D for done: ";
+            while(done == false && numberDiscarded != 5 && cardNumber != 'd'){
+                cout << "Please enter card number to discard or d for done: ";
                 cin >> cardNumber;
-                if(cardNumber != 'D'){
+                if(cardNumber != 'd'){
                     intToHoldCard = cardNumber - '1';
-                    while(first[intToHoldCard].discarded == true && cardNumber != 'D'){
+                    while(first[intToHoldCard].discarded == true && cardNumber != 'd'){
                         cout << "\nYou already discarded this card!!!";
-                        cout << "Enter card number or D for done: ";
+                        cout << "Enter card number or d for done: ";
                         cin >> cardNumber;
                         intToHoldCard = cardNumber - '1';
                     }
-                    if(cardNumber != 'D'){
+                    if(cardNumber != 'd'){
                         first[intToHoldCard].discarded = true;
                         numberDiscarded++;
                     }
                 }
-                else if(cardNumber == 'D')
+                else if(cardNumber == 'd')
                     done = true;
             }
             cout << "You have chosen to discard cards: " << endl;
@@ -321,11 +332,11 @@ void askForHold(card first[], card deck[]){
                     cout << i + 1<< " ";
             }
             cout << endl;
-            cout << "Would you like to change your mind? Y or N: ";
+            cout << "Would you like to change your mind? y or N: ";
             char changeMind = 'A';
             cin >> changeMind;
-            while(changeMind != 'Y' && changeMind != 'N'){
-                cout << endl << "You Must enter Y or N: ";
+            while(changeMind != 'y' && changeMind != 'n'){
+                cout << endl << "You Must enter y or n: ";
                 cin >> changeMind;
             }
             if(changeMind == 'Y'){
@@ -362,8 +373,8 @@ void secondHand(card first[], card deck[]){
 /*This function will return an int corresponding to the following winning hands:
 0 Nothing
 1 pair 
-2 3 oof a kind
-3 pair
+2 3 of a kind
+3 2 pairs
 4 straight
 5 flush
 6 full house
@@ -371,10 +382,14 @@ void secondHand(card first[], card deck[]){
 8 straight flush
 9 royal flush*/
 int checkIfWinner(card first[]){
+    int holder = 0;
     if(checkPair(first) == true){
-        return 1;
+        holder = 1;
     }
-    return 0;
+    if(check3(first) == true){
+        holder = 2;
+    }
+    return holder;
 }
 
 //This function checks for a pair
@@ -414,9 +429,7 @@ bool check3(card first[]){
                         return true;
 
     }
-    if(first[3].value == first[4].value && first[4].value == first[5].value)
+    if(first[2].value == first[3].value && first[3].value == first[4].value)
         return true;
-
-
     return false;
 }
