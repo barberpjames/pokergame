@@ -12,7 +12,6 @@
 #include <ctime>
 
 
-////////////////////////////testing github
 struct card{
     int value;
     char suite;
