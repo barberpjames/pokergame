@@ -12,7 +12,7 @@
 #include <ctime>
 
 
-
+////////////////////////////testing github
 struct card{
     int value;
     char suite;
@@ -69,7 +69,7 @@ int main(int argc, char** argv){
 /*    for(int i = 1; i < 53; i++){
         cout << deck[i].value << " " << deck[i].suite << " " << deck[i].dealt << endl;
     }*/
-    
+
 
 
 
@@ -83,7 +83,7 @@ int main(int argc, char** argv){
 
 
 //This is the initialize deck function. It will initialize the
-//deck with 52 cards, each with 1-13, S, D, H, C. 
+//deck with 52 cards, each with 1-13, S, D, H, C.
 void initializeDeck(card deck[]){
     for(int i = 1; i < 53; i++){
         if(i < 14){
@@ -105,7 +105,7 @@ void initializeDeck(card deck[]){
     }
 }
 
-//This is the first hand function. It will keep pulling 
+//This is the first hand function. It will keep pulling
 //random cards from the deck until none of them are the same
 //Receives an array of 5 elements and the card array
 void firstHand(card first[], card deck[]){
@@ -126,15 +126,15 @@ void firstHand(card first[], card deck[]){
     int randomForSelection4;
     int randomForSelection5;
 
-    while(((c1.value == c2.value) && (c1.suite == c2.suite)) || 
-          ((c1.value == c3.value) && (c1.suite == c3.suite)) || 
-          ((c1.value == c4.value) && (c1.suite == c4.suite)) || 
-          ((c1.value == c5.value) && (c1.suite == c5.suite)) || 
-          ((c2.value == c3.value) && (c2.suite == c3.suite)) || 
-          ((c2.value == c4.value) && (c2.suite == c4.suite)) || 
-          ((c2.value == c5.value) && (c2.suite == c5.suite)) || 
-          ((c3.value == c4.value) && (c3.suite == c4.suite)) || 
-          ((c3.value == c5.value) && (c3.suite == c5.suite)) || 
+    while(((c1.value == c2.value) && (c1.suite == c2.suite)) ||
+          ((c1.value == c3.value) && (c1.suite == c3.suite)) ||
+          ((c1.value == c4.value) && (c1.suite == c4.suite)) ||
+          ((c1.value == c5.value) && (c1.suite == c5.suite)) ||
+          ((c2.value == c3.value) && (c2.suite == c3.suite)) ||
+          ((c2.value == c4.value) && (c2.suite == c4.suite)) ||
+          ((c2.value == c5.value) && (c2.suite == c5.suite)) ||
+          ((c3.value == c4.value) && (c3.suite == c4.suite)) ||
+          ((c3.value == c5.value) && (c3.suite == c5.suite)) ||
           ((c4.value == c5.value) && (c4.suite == c5.suite))){
         randomForSelection1 = rand() % 53;
         while(randomForSelection1 == 0)
@@ -191,12 +191,12 @@ void printCards(card hand[]){
             cout << " CARD ";
             cout << (i + 1);
             cout.width(7);
-            cout << left << ":"; 
+            cout << left << ":";
         }
         cout << endl;
         cout << endl;
-        cout << "----------" << "    " << "----------" << "    " 
-             << "----------" << "    " << "----------" << "    " 
+        cout << "----------" << "    " << "----------" << "    "
+             << "----------" << "    " << "----------" << "    "
              << "----------" << endl;
         for(int i = 0; i < 5; i++){
             cout << "|      ";
@@ -223,7 +223,7 @@ void printCards(card hand[]){
         cout << endl;
         /////////////////////end of first row/////////////////////////////
         for(int i = 0; i < 5; i++){
-            cout << "|        |    "; 
+            cout << "|        |    ";
         }
         cout << endl;
         ////////////////////end of second row////////////////////////////
@@ -240,7 +240,7 @@ void printCards(card hand[]){
         cout << endl;
         ////////////////////end of third row///////////////////////////
         for(int i = 0; i < 5; i++){
-            cout << "|        |    "; 
+            cout << "|        |    ";
         }
         cout << endl;
         /////////////////////end of fourth row/////////////////////////////
@@ -267,8 +267,8 @@ void printCards(card hand[]){
                 cout << " |" << "    ";
         }
         cout << endl;
-        cout << "----------" << "    " << "----------" << "    " 
-             << "----------" << "    " << "----------" << "    " 
+        cout << "----------" << "    " << "----------" << "    "
+             << "----------" << "    " << "----------" << "    "
              << "----------" << endl;
     cout << endl << endl << endl << endl;
 
@@ -351,7 +351,7 @@ void askForHold(card first[], card deck[]){
         }
         else/////////////////////////////////////////////////Not holding cards
             holding = true;
-    } 
+    }
 }
 
 //Function that will check for discarded cards, and deal new ones when appropriate
@@ -372,7 +372,7 @@ void secondHand(card first[], card deck[]){
 
 /*This function will return an int corresponding to the following winning hands:
 0 Nothing
-1 pair 
+1 pair
 2 3 of a kind
 3 2 pairs
 4 straight
