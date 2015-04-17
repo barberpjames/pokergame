@@ -1,5 +1,5 @@
 //Directory text files must be placed in the /directory relative directory
-///////////////////////////////////testtest
+
 #include <iostream>
 #include <stdlib.h>
 #include <fstream>
